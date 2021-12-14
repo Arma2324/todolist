@@ -1,18 +1,30 @@
 import React from 'react';
+import { StateProps } from '../App';
 
-class TodoItem extends React.Component {
-  render() {
-    return (
-      <li>
-				<div className="view">
-					<input className="toggle" type="checkbox" />
-					<label>Buy a unicorn</label>
-					<button className="destroy"></button>
-				</div>
-				<input className="edit" value="Rule the web" />
-			</li>
-    )
-  }
+interface IProps {
+	todo: StateProps
+	changeTodo: (id: number) => void
+}
+const TodoItem = ({ todo, changeTodo }: IProps) => {
+	const changeHandler = () => {
+		changeTodo(todo.id)
+	}
+
+  return (
+    <li className={todo.isCompleted ? 'completed' : ''}>
+			<div className="view">
+				<input
+					className="toggle"
+					type="checkbox"
+					checked={todo.isCompleted}
+					onChange={changeHandler}
+				/>
+				<label>{todo.content}</label>
+				<button className="destroy"></button>
+			</div>
+			{/* <input className="edit" value="Rule the web" /> */}
+		</li>
+  )
 }
 
 export default TodoItem;

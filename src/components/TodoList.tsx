@@ -1,22 +1,19 @@
 import React from 'react';
+import { StateProps } from '../App';
 import TodoItem from './TodoItem';
 
-class TodoList extends React.Component {
-  render() {
-    return (
-      <ul className="todo-list">
-					<li className="completed">
-						<div className="view">
-							<input className="toggle" type="checkbox" defaultChecked />
-							<label>Taste JavaScript</label>
-							<button className="destroy"></button>
-						</div>
-						<input className="edit" value="Create a TodoMVC template" />
-					</li>
-					<TodoItem />
-				</ul>
-    )
-  }
+interface IProps {
+	todolist: StateProps[]
+	changeTodo: (id: number) => void
+}
+
+const TodoList = ({ todolist, changeTodo }: IProps) => {
+	const todolistDom = todolist.map(item => <TodoItem key={item.id} todo={item} changeTodo={changeTodo} />)
+  return (
+    <ul className="todo-list">
+			{ todolistDom }
+		</ul>
+  )
 }
 
 export default TodoList;
