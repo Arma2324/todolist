@@ -85,7 +85,7 @@ const App = () => {
         showEditInput={showEditInput}
         changeContent={changeContent}
       />
-			<Bottom count={count} clearCompleted={clearCompleted} />
+			{todolist.length > 0 && <Bottom count={count} clearCompleted={clearCompleted} />}
     </div>
   );
 }
