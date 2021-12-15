@@ -12,7 +12,7 @@ export interface StateProps {
 
 const App = () => {
   const [ todolist, setTodolist ] = useState<StateProps[]>([])
-
+  
   const changeStatus = (id: number) => {
     const newTodolist = todolist.map(item => {
       if (id === item.id) {
@@ -69,6 +69,15 @@ const App = () => {
     const newTodolist = todolist.filter(item => item.isCompleted === false)
     setTodolist(newTodolist)
   }
+  
+  const toggleAll = (isToggleAll: boolean) => {
+    const newTodolist = todolist.map(item => {
+      return Object.assign({}, item, {
+        isCompleted: !isToggleAll
+      })
+    })
+    setTodolist(newTodolist)
+  }
 
   const count = todolist.filter(item => item.isCompleted === false).length
 
@@ -77,7 +86,7 @@ const App = () => {
       <header className="header">
 				<h1>todos</h1>
 			</header>
-      <NewTodo addTodo={addTodo} />
+      <NewTodo addTodo={addTodo} toggleAll={toggleAll} />
       <TodoList
         todolist={todolist}
         changeStatus={changeStatus}

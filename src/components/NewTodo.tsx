@@ -3,10 +3,12 @@ import { StateProps } from '../App'
 
 interface IProps {
   addTodo: (todo: StateProps) => void
+  toggleAll: (isToggleAll: boolean) => void
 }
 
-const NewTodo = ({ addTodo }: IProps) => {
+const NewTodo = ({ addTodo, toggleAll }: IProps) => {
   const [text, setText] = useState('')
+  const [isToggleAll, setIsToggleAll] = useState(false)
 
   const changeTextHandler = (e: React.ChangeEvent) => {
     setText((e.target as HTMLInputElement).value)
@@ -26,6 +28,11 @@ const NewTodo = ({ addTodo }: IProps) => {
       
   }
 
+  const toggleAllHandler = () => {
+    setIsToggleAll(!isToggleAll)
+    toggleAll(isToggleAll)
+  }
+
   return (
     <div className="container">
       <input
@@ -36,7 +43,7 @@ const NewTodo = ({ addTodo }: IProps) => {
         value={text}
         autoFocus
       />
-      <input id="toggle-all" className="toggle-all" type="checkbox" />
+      <input id="toggle-all" className="toggle-all" type="checkbox" checked={isToggleAll} onChange={toggleAllHandler} />
       <label htmlFor="toggle-all"></label>
     </div>
   )
