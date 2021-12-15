@@ -2,12 +2,17 @@ import React from 'react';
 
 interface IProps {
 	count: number
+	clearCompleted: () => void
 }
-const Bottom = ({ count }: IProps) => {
+const Bottom = ({ count, clearCompleted }: IProps) => {
+	const clearCompletedHandler = () => {
+    clearCompleted()
+	}
+
   return (
     <footer className="footer">
 			<span className="todo-count"><strong>{count}</strong> item left</span>
-			<ul className="filters">
+			{/* <ul className="filters">
 				<li>
 					<a className="selected" href="#/">All</a>
 				</li>
@@ -17,8 +22,8 @@ const Bottom = ({ count }: IProps) => {
 				<li>
 					<a href="#/completed">Completed</a>
 				</li>
-			</ul>
-			<button className="clear-completed">Clear completed</button>
+			</ul> */}
+			<button className="clear-completed" onClick={clearCompletedHandler}>Clear completed</button>
 		</footer>
   )
 }

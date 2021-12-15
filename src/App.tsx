@@ -65,6 +65,11 @@ const App = () => {
     setTodolist(newTodolist)
   }
   
+  const clearCompleted = () => {
+    const newTodolist = todolist.filter(item => item.isCompleted === false)
+    setTodolist(newTodolist)
+  }
+
   const count = todolist.filter(item => item.isCompleted === false).length
 
   return (
@@ -80,7 +85,7 @@ const App = () => {
         showEditInput={showEditInput}
         changeContent={changeContent}
       />
-			<Bottom count={count} />
+			<Bottom count={count} clearCompleted={clearCompleted} />
     </div>
   );
 }
