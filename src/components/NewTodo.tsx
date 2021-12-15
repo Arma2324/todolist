@@ -2,23 +2,23 @@ import React, { useState } from 'react';
 import { StateProps } from '../App'
 
 interface IProps {
-  addTodo: (todo: StateProps) => void;
+  addTodo: (todo: StateProps) => void
 }
 
 const NewTodo = ({ addTodo }: IProps) => {
   const [text, setText] = useState('')
-  
+
   const changeTextHandler = (e: React.ChangeEvent) => {
     setText((e.target as HTMLInputElement).value)
   }
 
   const addTodoHandler = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
-      console.log(text)
+    if (e.key === 'Enter' && text !== '') {
       addTodo({
         id: new Date().getTime(),
         content: text,
-        isCompleted: false
+        isCompleted: false,
+        editing: false
       })
 
       setText('')

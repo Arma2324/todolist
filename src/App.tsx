@@ -4,15 +4,16 @@ import TodoList from './components/TodoList'
 import Bottom from './components/Bottom'
 
 export interface StateProps {
-  id: number;
-  content: string;
-  isCompleted: boolean;
+  id: number
+  content: string
+  isCompleted: boolean
+  editing: boolean
 }
 
 const App = () => {
   const [ todolist, setTodolist ] = useState<StateProps[]>([])
 
-  const changeTodo = (id: number) => {
+  const changeStatus = (id: number) => {
     const newTodolist = todolist.map(item => {
       if (id === item.id) {
         return Object.assign({}, item, {
@@ -34,6 +35,35 @@ const App = () => {
     const newTodolist = todolist.filter(item => item.id !== id)
     setTodolist(newTodolist)
   }
+
+  const showEditInput = (id: number) => {
+    const newTodolist = todolist.map(item => {
+      if (id === item.id) {
+        return Object.assign({}, item, {
+          editing: !item.editing
+        })
+      }
+      
+      return item
+    })
+
+    setTodolist(newTodolist)
+  }
+  
+  const changeContent = (id: number, content: string) => {
+    const newTodolist = todolist.map(item => {
+      if(id === item.id) {
+        return Object.assign({}, item, {
+          content: content,
+          editing: false
+        })
+      }
+
+      return item
+    })
+
+    setTodolist(newTodolist)
+  }
   
   const count = todolist.filter(item => item.isCompleted === false).length
 
@@ -45,8 +75,10 @@ const App = () => {
       <NewTodo addTodo={addTodo} />
       <TodoList
         todolist={todolist}
-        changeTodo={changeTodo}
+        changeStatus={changeStatus}
         deleteTodo={deleteTodo}
+        showEditInput={showEditInput}
+        changeContent={changeContent}
       />
 			<Bottom count={count} />
     </div>

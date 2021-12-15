@@ -4,12 +4,25 @@ import TodoItem from './TodoItem';
 
 interface IProps {
 	todolist: StateProps[]
-	changeTodo: (id: number) => void
+	changeStatus: (id: number) => void
 	deleteTodo: (id: number) => void
+	showEditInput: (id: number) => void
+	changeContent: (id: number, content: string) => void
 }
 
-const TodoList = ({ todolist, changeTodo, deleteTodo }: IProps) => {
-	const todolistDom = todolist.map(item => <TodoItem key={item.id} todo={item} changeTodo={changeTodo} deleteTodo={deleteTodo} />)
+const TodoList = ({ todolist, changeStatus, deleteTodo, showEditInput, changeContent }: IProps) => {
+	const todolistDom = todolist.map(item => {
+		return (
+			<TodoItem
+			  key={item.id}
+				todo={item}
+				changeStatus={changeStatus}
+				deleteTodo={deleteTodo}
+				showEditInput={showEditInput}
+				changeContent={changeContent}
+				/>
+		)
+	})
   return (
     <ul className="todo-list">
 			{ todolistDom }
