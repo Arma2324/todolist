@@ -4,10 +4,15 @@ import { StateProps } from '../App';
 interface IProps {
 	todo: StateProps
 	changeTodo: (id: number) => void
+	deleteTodo: (id: number) => void
 }
-const TodoItem = ({ todo, changeTodo }: IProps) => {
+const TodoItem = ({ todo, changeTodo, deleteTodo }: IProps) => {
 	const changeHandler = () => {
 		changeTodo(todo.id)
+	}
+
+	const deleteTodoHandler = () => {
+    deleteTodo(todo.id)
 	}
 
   return (
@@ -20,7 +25,7 @@ const TodoItem = ({ todo, changeTodo }: IProps) => {
 					onChange={changeHandler}
 				/>
 				<label>{todo.content}</label>
-				<button className="destroy"></button>
+				<button className="destroy" onClick={deleteTodoHandler}></button>
 			</div>
 			{/* <input className="edit" value="Rule the web" /> */}
 		</li>

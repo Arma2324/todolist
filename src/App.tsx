@@ -30,14 +30,25 @@ const App = () => {
     setTodolist([...todolist, todo])
   }
 
+  const deleteTodo = (id: number) => {
+    const newTodolist = todolist.filter(item => item.id !== id)
+    setTodolist(newTodolist)
+  }
+  
+  const count = todolist.filter(item => item.isCompleted === false).length
+
   return (
     <div className="todoapp">
       <header className="header">
 				<h1>todos</h1>
 			</header>
       <NewTodo addTodo={addTodo} />
-      <TodoList todolist={todolist} changeTodo={changeTodo} />
-			<Bottom />
+      <TodoList
+        todolist={todolist}
+        changeTodo={changeTodo}
+        deleteTodo={deleteTodo}
+      />
+			<Bottom count={count} />
     </div>
   );
 }
